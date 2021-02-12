@@ -1,0 +1,43 @@
+<mat-toolbar color="primary">
+  <span>My App</span>
+  <div fxLayout="row" fxShow="false" fxShow.gt-sm>
+    <button mat-button *ngIf="isLoggedIn">Мои задачи</button>
+    <button mat-button *ngIf="isLoggedIn">Просмотр пользователей</button>
+
+    <span class="spacer"></span>
+    <button mat-raised-button routerLink="sign-in" color="warn" *ngIf="!isLoggedIn">
+      <mat-icon>login</mat-icon>
+      Войти
+    </button>
+    <button mat-raised-button routerLink="sign-up" color="warn" class="ml-2" *ngIf="!isLoggedIn">
+      <mat-icon>person_add</mat-icon>
+      Регистрация
+    </button>
+    <button mat-raised-button routerLink="logout" color="warn" class="ml-2" *ngIf="isLoggedIn" (click)="authService.logout()">
+      <mat-icon>logout</mat-icon>
+      Выйти
+    </button>
+  </div>
+  <span class="spacer"></span>
+  <button mat-button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-sm>
+    <mat-icon>menu</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-menu x-position="before" #menu="matMenu">
+  <button mat-menu-item>Мои задачи</button>
+  <button mat-menu-item>Просмотр пользователей</button>
+
+  <button mat-menu-item routerLink="sign-in" *ngIf="!isLoggedIn">
+    <mat-icon>login</mat-icon>
+    Войти
+  </button>
+  <button mat-menu-item routerLink="sign-up" *ngIf="!isLoggedIn">
+    <mat-icon>person_add</mat-icon>
+    Регистрация
+  </button>
+  <button mat-raised-button routerLink="logout" color="warn" class="ml-2" *ngIf="isLoggedIn" (click)="authService.logout()">
+    <mat-icon>logout</mat-icon>
+    Выйти
+  </button>
+</mat-menu>
