@@ -14,6 +14,7 @@ export class SignInComponent implements OnInit {
   password = new FormControl('', [Validators.required, Validators.minLength(8)]);
 
   errorlogin: string;
+  showProgress = false;
 
   constructor(private authService: AuthService) {
   }
@@ -40,11 +41,12 @@ export class SignInComponent implements OnInit {
     user = new User();
     user.username = this.username.value;
     user.password = this.password.value;
-    console.log(user);
+    this.showProgress = true;
     this.authService.login(user).subscribe(res => {
-
+      this.showProgress = false;
     }, error => {
       this.errorlogin = 'Ошибка при входе, проверьте правильность имени пользователя и пароля';
+      this.showProgress = false;
     });
   }
 }

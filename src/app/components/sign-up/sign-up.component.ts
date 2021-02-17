@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
+import {AuthService} from '../../services/auth.service';
+import {User} from '../../model/User';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-sign-up',
@@ -12,8 +15,10 @@ export class SignUpComponent implements OnInit {
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [Validators.required, Validators.minLength(8)]);
   confpassword = new FormControl('', [Validators.required, Validators.minLength(8)]);
+  errorRegister: string;
+  successRegister: string;
 
-  constructor() {
+  constructor(private authService: AuthService, private http: HttpClient) {
   }
 
   ngOnInit(): void {
@@ -48,6 +53,20 @@ export class SignUpComponent implements OnInit {
   }
 
   clickRegister(): void {
+    let user;
+    user = new User();
+    user.username = this.username.value;
+    user.password = this.password.value;
+    user.email = this.email.value;
+    user.role = 2;
+    console.log(user);
 
+    this.authService.register(user).subscribe(res => {
+      console.log(res);
+      this.successRegister = 'Успешная регистрация';
+    }, error => {
+      console.log(error);
+      this.errorRegister = 'Ошибка регистрации';
+    });
   }
 }

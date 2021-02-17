@@ -15,18 +15,28 @@ export const ACCESS_TOKEN_KEY = '';
 })
 export class AuthService {
 
-  constructor(private http: HttpClient, @Inject(SERVER_API_URL) private apiUrl: string, private jwtHelper: JwtHelperService, private router: Router) {
+  constructor(private http: HttpClient, @Inject(SERVER_API_URL) private apiUrl: string,
+              private jwtHelper: JwtHelperService, private router: Router) {
   }
 
-  login(user: User): Observable<Token> {
-    return this.http.post<Token>(`${this.apiUrl}/api/auth/sign-in`, user).pipe(
-      tap(token => {
-        localStorage.setItem(ACCESS_TOKEN_KEY, token.access_token);
+  login(user: User): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/api/auth/sign-in`, user).pipe(
+      tap(res => {
+        localStorage.setItem(ACCESS_TOKEN_KEY, res.access_token);
+        localStorage.setItem('role', res.role);
         this.router.navigate(['']);
       })
     );
   }
 
+  register(user: User): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/api/auth/sign-up`, user).pipe();
+  }
+
+  isAdmin(): boolean {
+    const role = localStorage.getItem('role');
+    return role === '1';
+  }
   isAuth(): boolean {
     const token = localStorage.getItem(ACCESS_TOKEN_KEY);
     return token && !this.jwtHelper.isTokenExpired(token);

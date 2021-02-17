@@ -1,0 +1,12 @@
+<h1 mat-dialog-title class="text-center"><strong>Удалить задачу</strong></h1>
+<div mat-dialog-content>
+  <h3>Действительно удалить задачу <b>{{data.taskname}}</b>?</h3>
+</div>
+<div class="row" mat-dialog-actions>
+  <div class="col">
+    <button mat-raised-button class="btn-block" (click)="delTask()" color="success">Удалить</button>
+  </div>
+  <div class="col">
+    <button mat-raised-button class="btn-block" (click)="closeDel()" color="warn">Отмена</button>
+  </div>
+</div>

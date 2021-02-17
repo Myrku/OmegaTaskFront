@@ -1,5 +1,5 @@
-<div fxLayout="row" fxLayoutAlign="center">
-  <div fxLayout="column" fxLayoutAlign="start center">
+<div class="container h-100">
+  <div class="row h-100 justify-content-center align-items-center">
     <mat-card>
       <mat-card-header>
         <mat-card-title>Вход</mat-card-title>
@@ -22,13 +22,14 @@
               </mat-form-field>
             </div>
             <div>
-              <button [disabled]="username.invalid || password.invalid" fxFlex="100" mat-raised-button color="primary"
+              <button mat-raised-button [disabled]="username.invalid || password.invalid || showProgress" fxFlex="100"  color="primary"
                       (click)="clickLogin()">Войти
               </button>
             </div>
-            <div class="mat-error" *ngIf="errorlogin">
+            <div class="mat-error " *ngIf="errorlogin">
               {{errorlogin}}
             </div>
+            <mat-progress-bar class="mt-3" *ngIf="showProgress" mode='indeterminate'></mat-progress-bar>
           </div>
         </form>
       </mat-card-content>

@@ -21,6 +21,19 @@ import {SERVER_API_URL} from './app-injection-tokens';
 import {JwtModule} from '@auth0/angular-jwt';
 import { ACCESS_TOKEN_KEY } from './services/auth.service';
 import {HttpClientModule} from '@angular/common/http';
+import { MyTasksComponent } from './components/my-tasks/my-tasks.component';
+import {MatTableModule} from '@angular/material/table';
+import { AddDialogBoxComponent } from './components/add-dialog-box/add-dialog-box.component';
+import { DelDialogBoxComponent } from './components/del-dialog-box/del-dialog-box.component';
+import { UpdDialogBoxComponent } from './components/upd-dialog-box/upd-dialog-box.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatSelectModule} from '@angular/material/select';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 export function tokenGetter(): string {
   return localStorage.getItem(ACCESS_TOKEN_KEY);
@@ -31,7 +44,11 @@ export function tokenGetter(): string {
     AppComponent,
     NavbarComponent,
     SignUpComponent,
-    SignInComponent
+    SignInComponent,
+    MyTasksComponent,
+    AddDialogBoxComponent,
+    DelDialogBoxComponent,
+    UpdDialogBoxComponent
   ],
   imports: [
     BrowserModule,
@@ -48,16 +65,27 @@ export function tokenGetter(): string {
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
+    MatTableModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    MatAutocompleteModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
+
 
     JwtModule.forRoot({
       config: {
         tokenGetter,
-        allowedDomains: environment.tokenWhiteListdDomians
+        allowedDomains: environment.tokenWhiteListedDomains,
       }
     })
   ],
   providers: [
-    {provide: SERVER_API_URL, useValue: environment.urlApiServer}
+    {provide: SERVER_API_URL, useValue: environment.urlApiServer},
+    MatDatepickerModule
   ],
   bootstrap: [AppComponent]
 })
