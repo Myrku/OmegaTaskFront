@@ -1,27 +1,62 @@
-# MailFront
+# Тестовое задание OmegaSoftware
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.7.
+### Backend: https://github.com/Myrku/OmegaTaskBack
+### Frontend: https://github.com/Myrku/OmegaTaskFront
 
-## Development server
+## Backend
+Backend представлен webapi, написанным на asp .net core 3.1.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+- Для аутентификации использованы JWT-токены
+- В качестве базы данных используется sqlite
+- Для создания расписания использовался Quartz .net
 
-## Code scaffolding
+В качестве 3х API были выбраны:
+- [Covid-19 API](https://covid19-api.org/)
+- [API курсов валют](https://twelvedata.com/)
+- [API Breaking Bad (получение цитат)](https://www.breakingbadapi.com/)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Backend включает в себя 2 контроллера: 
+- AuthController (отвечает за авторизацию и аутентификацию)
+- TaskController (отвечает за работу с задачами)
 
-## Build
+При старте приложения на выполнение автоматически ставятся все задачи из базы данных.
+При добавлении создается триггер для вызова задачи, который хранит в себе необходимые для выполнения данные.
+Все задачи представлены триггерами, хранящими данные о старте, переодичности и данные для выполнения задачи.
+Тригеры вызывают срабатывание 3х имеющихся задач (CovidJob, ForexJob, QuoteJob).
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## Frontend
 
-## Running unit tests
+Frontend выполнени с использованием Angular 10.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Frontend содержит:
+- Страницу логина
+![](https://i.ibb.co/hRpr63p/image.png)
+- Страницу регистрации
+![](https://i.ibb.co/1ngxcwj/image.png)
+- Страницу с задачами пользователя (доступна после входа)
+![](https://i.ibb.co/YtP5kym/image.png)
+- Страницу со статистикой пользователей (доступна только пользователям с ролью "admin")
+![](https://i.ibb.co/H7SgsQv/image.png)
+- Окно добавления задачи
+![](https://i.ibb.co/6n3KyxY/image.png)
+- Окно редактирования задачи
+![](https://i.ibb.co/9969kGb/image.png)
+- Окно удаления
+![](https://i.ibb.co/9pSHwnP/image.png)
 
-## Running end-to-end tests
+На клиентской части происходит несколько дополнительных запросов:
+- Получение стран для выбора статистики Covid
+- Получение валютных пар
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+За взаимодействие с Backend отвечает 2 сервиса:
+- AuthService - аутентификация и авторизация
+- TaskService - CRUD для задач
 
-## Further help
+## Database
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+В качестве базы данных используется sqlite.
+База данных состоит из 4х таблиц:
+- Users - информация о пользователях
+- Tasks - информация о задачах
+- Apis - используемые api
+- Roles - используемые роли
