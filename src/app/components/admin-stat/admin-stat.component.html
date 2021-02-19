@@ -1,0 +1,24 @@
+<div class="container">
+  <h2 class="text-center mt-3 font-weight-bold">Статистика пользователей</h2>
+
+  <table mat-table [dataSource]="stats" class="mat-elevation-z8 mt-3">
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Имя пользователя</th>
+      <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="countTasks">
+      <th mat-header-cell *matHeaderCellDef>Кол-во адач</th>
+      <td mat-cell *matCellDef="let element"> {{element.countTasks}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="countExecute">
+      <th mat-header-cell *matHeaderCellDef>Кол-во выполнений</th>
+      <td mat-cell *matCellDef="let element"> {{element.countExecute}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

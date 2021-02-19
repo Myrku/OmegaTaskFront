@@ -16,7 +16,6 @@ export class MyTasksComponent implements OnInit {
   displayedColumns: string[] = ['name', 'description', 'laststart', 'update', 'delete'];
 
   constructor(public matDialog: MatDialog, private taskService: TaskService) {
-
   }
 
   tasks: Task[];
@@ -29,7 +28,7 @@ export class MyTasksComponent implements OnInit {
     const dialogRef = this.matDialog.open(UpdDialogBoxComponent, {data: task});
     dialogRef.afterClosed().subscribe(result => {
       if (result.event === 'Upd') {
-        console.log('kekw upd');
+        this.GetTasks();
       }
     });
   }
@@ -49,7 +48,6 @@ export class MyTasksComponent implements OnInit {
     const dialogRef = this.matDialog.open(AddDialogBoxComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result.event === 'Add') {
-        console.log(this.tasks);
         this.GetTasks();
       }
     });
@@ -58,8 +56,6 @@ export class MyTasksComponent implements OnInit {
   GetTasks(): void {
     this.taskService.GetTasks().subscribe(res => {
       this.tasks = res.tasks;
-    }, error => {
-      console.log(error);
     });
   }
 }

@@ -34,6 +34,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { AdminStatComponent } from './components/admin-stat/admin-stat.component';
 
 export function tokenGetter(): string {
   return localStorage.getItem(ACCESS_TOKEN_KEY);
@@ -48,7 +49,8 @@ export function tokenGetter(): string {
     MyTasksComponent,
     AddDialogBoxComponent,
     DelDialogBoxComponent,
-    UpdDialogBoxComponent
+    UpdDialogBoxComponent,
+    AdminStatComponent
   ],
   imports: [
     BrowserModule,

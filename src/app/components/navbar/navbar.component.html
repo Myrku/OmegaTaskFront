@@ -1,7 +1,7 @@
 <mat-toolbar color="primary">
   <span>Mail task</span>
   <button mat-button class="mr-2 ml-2" *ngIf="isLoggedIn" fxShow="false" fxShow.gt-sm routerLink="my-tasks">Мои задачи</button>
-  <button mat-button *ngIf="isLoggedIn && authService.isAdmin()" fxShow="false" fxShow.gt-sm routerLink="show-users">Просмотр пользователей</button>
+  <button mat-button *ngIf="isLoggedIn && authService.isAdmin()" fxShow="false" fxShow.gt-sm routerLink="admin-stat">Просмотр пользователей</button>
 
   <div class="row w-100 justify-content-end align-items-end" fxShow="false" fxShow.gt-sm>
     <button mat-raised-button routerLink="sign-in" *ngIf="!isLoggedIn" class="mr-2">

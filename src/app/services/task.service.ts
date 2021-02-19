@@ -9,7 +9,8 @@ import {SERVER_API_URL} from '../app-injection-tokens';
 })
 export class TaskService {
 
-  constructor(private http: HttpClient, @Inject(SERVER_API_URL) private apiUrl: string) { }
+  constructor(private http: HttpClient, @Inject(SERVER_API_URL) private apiUrl: string) {
+  }
 
   GetCovidCountries(): Observable<any> {
     return this.http.get('https://covid19-api.org/api/countries').pipe();
@@ -27,11 +28,19 @@ export class TaskService {
     return this.http.delete(`${this.apiUrl}/api/task/delete/${id}`).pipe();
   }
 
+  UpdateTask(task: Task): Observable<any> {
+    return this.http.put(this.apiUrl + '/api/task/update', task).pipe();
+  }
+
   GetApis(): Observable<any> {
     return this.http.get(`${this.apiUrl}/api/task/getapis`).pipe();
   }
 
   GetForexPairList(): Observable<any> {
     return this.http.get(`https://api.twelvedata.com/forex_pairs`).pipe();
+  }
+
+  GetStat(): Observable<any> {
+    return  this.http.get(`${this.apiUrl}/api/task/stat`).pipe();
   }
 }

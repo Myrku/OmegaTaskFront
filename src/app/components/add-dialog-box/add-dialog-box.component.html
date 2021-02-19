@@ -18,7 +18,7 @@
     </mat-form-field>
 
     <p>
-      <mat-checkbox [formControl]="disableSelect" *ngIf="api.value" color="primary">
+      <mat-checkbox [formControl]="disableSelect" *ngIf="api.value && api.value !== '2'" color="primary">
         <div *ngIf="api.value === '1'">
           Выбрать страну
         </div>
@@ -29,7 +29,7 @@
     </p>
 
     <!--  Input for get params for api  -->
-    <mat-form-field *ngIf="disableSelect.value">
+    <mat-form-field *ngIf="disableSelect.value && api.value !== '2'">
       <mat-label>
         Введите название страны
       </mat-label>
@@ -57,13 +57,14 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>Укажите переодичность выполнения задачи в часах</mat-label>
+      <mat-label>Укажите переодичность выполнения задачи в минутах</mat-label>
       <input type="number" matInput [formControl]="period" min="1" required>
     </mat-form-field>
 
     <div class="row">
       <div class="col">
-        <button mat-raised-button class="btn-block" color="success" (click)="addTask()" [disabled]="showProgress">
+        <button mat-raised-button class="btn-block" color="success" (click)="addTask()" [disabled]="showProgress ||
+        name.invalid || api.invalid || starttime.invalid || period.invalid">
           Добавить
         </button>
       </div>

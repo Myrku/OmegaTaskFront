@@ -17,6 +17,7 @@ export class SignUpComponent implements OnInit {
   confpassword = new FormControl('', [Validators.required, Validators.minLength(8)]);
   errorRegister: string;
   successRegister: string;
+  showProgress = false;
 
   constructor(private authService: AuthService, private http: HttpClient) {
   }
@@ -59,14 +60,13 @@ export class SignUpComponent implements OnInit {
     user.password = this.password.value;
     user.email = this.email.value;
     user.role = 2;
-    console.log(user);
-
+    this.showProgress = true;
     this.authService.register(user).subscribe(res => {
-      console.log(res);
       this.successRegister = 'Успешная регистрация';
+      this.showProgress = false;
     }, error => {
-      console.log(error);
       this.errorRegister = 'Ошибка регистрации';
+      this.showProgress = false;
     });
   }
 }

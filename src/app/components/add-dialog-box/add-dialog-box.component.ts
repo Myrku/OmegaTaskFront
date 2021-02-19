@@ -16,7 +16,7 @@ import {ForexPairs} from '../../model/ForexPair';
 })
 export class AddDialogBoxComponent implements OnInit {
 
-  name = new FormControl('', [Validators.required, Validators.minLength(6)]);
+  name = new FormControl('', [Validators.required]);
   desc = new FormControl('');
   api = new FormControl('', Validators.required);
   apiparam = new FormControl('');
@@ -37,7 +37,6 @@ export class AddDialogBoxComponent implements OnInit {
   constructor(private taskService: TaskService, public dialogRef: MatDialogRef<DelDialogBoxComponent>) {
     taskService.GetCovidCountries().subscribe(res => {
       this.countries = res;
-      console.log(this.countries);
     });
 
     taskService.GetApis().subscribe(res => {
@@ -46,7 +45,6 @@ export class AddDialogBoxComponent implements OnInit {
 
     taskService.GetForexPairList().subscribe(res => {
       this.forexPairs = res.data;
-      console.log(this.forexPairs);
     });
   }
 
