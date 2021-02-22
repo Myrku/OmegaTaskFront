@@ -1,11 +1,11 @@
 export class Task {
   id: number;
-  userid: number;
-  taskname: string;
+  userId: number;
+  taskName: string;
   description: string;
-  starttime: string;
-  period: number;
-  apiid: number;
-  apiparam: string;
-  laststart: string;
+  startTime: string;
+  period: string;
+  apiId: number;
+  apiParam: string;
+  lastStart: string;
 }

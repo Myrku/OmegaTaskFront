@@ -24,7 +24,7 @@ export class MyTasksComponent implements OnInit {
     this.GetTasks();
   }
 
-  update(task: Task): void {
+  Update(task: Task): void {
     const dialogRef = this.matDialog.open(UpdDialogBoxComponent, {data: task});
     dialogRef.afterClosed().subscribe(result => {
       if (result.event === 'Upd') {
@@ -33,7 +33,7 @@ export class MyTasksComponent implements OnInit {
     });
   }
 
-  delete(task: Task): void {
+  Delete(task: Task): void {
     const dialogRef = this.matDialog.open(DelDialogBoxComponent, {data: task});
     dialogRef.afterClosed().subscribe(result => {
       if (result.event === 'Delete') {
@@ -44,7 +44,7 @@ export class MyTasksComponent implements OnInit {
     });
   }
 
-  add(): void {
+  Add(): void {
     const dialogRef = this.matDialog.open(AddDialogBoxComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result.event === 'Add') {

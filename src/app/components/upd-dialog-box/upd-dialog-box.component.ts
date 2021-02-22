@@ -1,13 +1,14 @@
 import {Component, Inject, OnInit, Optional} from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 import {TaskService} from '../../services/task.service';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {DelDialogBoxComponent} from '../del-dialog-box/del-dialog-box.component';
 import {map, startWith} from 'rxjs/operators';
 import {Country} from '../../model/Country';
 import {Observable} from 'rxjs';
 import {Task} from '../../model/Task';
 import {ForexPairs} from '../../model/ForexPair';
+import {CronDialogBoxComponent} from '../cron-dialog-box/cron-dialog-box.component';
 
 @Component({
   selector: 'app-upd-dialog-box',
@@ -16,12 +17,12 @@ import {ForexPairs} from '../../model/ForexPair';
 })
 export class UpdDialogBoxComponent implements OnInit {
 
-  name = new FormControl(this.data.taskname, [Validators.required]);
+  name = new FormControl(this.data.taskName, [Validators.required]);
   desc = new FormControl(this.data.description);
-  api = new FormControl(`${this.data.apiid}`, Validators.required);
-  apiparam = new FormControl(this.data.apiparam);
+  api = new FormControl(`${this.data.apiId}`, Validators.required);
+  apiparam = new FormControl(this.data.apiParam);
   period = new FormControl(this.data.period, Validators.required);
-  disableSelect = new FormControl(this.data.apiparam !== '');
+  disableSelect = new FormControl(this.data.apiParam !== '');
 
   countries: Country[] = [];
   filteredContries: Observable<Country[]>;
@@ -32,8 +33,8 @@ export class UpdDialogBoxComponent implements OnInit {
   forexPairs: ForexPairs[] = [];
   filteredForexPairs: Observable<ForexPairs[]>;
 
-  constructor(private taskService: TaskService, public dialogRef: MatDialogRef<DelDialogBoxComponent>,
-              @Optional() @Inject(MAT_DIALOG_DATA) public data: Task) {
+  constructor(private taskService: TaskService, public dialogRef: MatDialogRef<UpdDialogBoxComponent>,
+              @Optional() @Inject(MAT_DIALOG_DATA) public data: Task, public matDialog: MatDialog) {
     this.taskService.GetCovidCountries().subscribe(res => {
       this.countries = res;
     });
@@ -73,11 +74,11 @@ export class UpdDialogBoxComponent implements OnInit {
 
   updTask(): any {
 
-    this.data.taskname = this.name.value;
+    this.data.taskName = this.name.value;
     this.data.description = this.desc.value;
     const y: number = +this.api.value;
-    this.data.apiid = y;
-    this.data.apiparam = this.apiparam.value;
+    this.data.apiId = y;
+    this.data.apiParam = this.apiparam.value;
     this.data.period = this.period.value;
     this.showProgress = true;
 
@@ -91,11 +92,20 @@ export class UpdDialogBoxComponent implements OnInit {
     });
   }
 
-  closeUpd(): any {
+  CloseUpd(): any {
     this.dialogRef.close({event: 'Cancel'});
   }
 
-  changeSelectedApi(): void {
+  ChangeSelectedApi(): void {
     this.apiparam.setValue('');
+  }
+  OpenCronDialog(): any {
+    const dialogRef = this.matDialog.open(CronDialogBoxComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result.event === 'CronSelected') {
+        console.log(result.cron);
+        this.period.setValue(result.cron);
+      }
+    });
   }
 }

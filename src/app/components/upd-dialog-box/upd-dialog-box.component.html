@@ -11,7 +11,7 @@
     </mat-form-field>
     <mat-form-field>
       <mat-label>Выберете задачу</mat-label>
-      <mat-select [formControl]="api" required (valueChange)="changeSelectedApi()">
+      <mat-select [formControl]="api" required (valueChange)="ChangeSelectedApi()">
         <mat-option *ngFor="let api of apis" value="{{api.id}}">{{api.apiname}}</mat-option>
       </mat-select>
     </mat-form-field>
@@ -48,8 +48,8 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>Укажите переодичность выполнения задачи в минутах</mat-label>
-      <input type="number" matInput [formControl]="period" min="1" required>
+      <mat-label>Укажите переодичность выполнения задачи</mat-label>
+      <input matInput [formControl]="period" (click)="OpenCronDialog()" required>
     </mat-form-field>
 
 
@@ -63,7 +63,7 @@
 
       </div>
       <div class="col">
-        <button mat-raised-button class="btn-block" color="warn" (click)="closeUpd()">О
+        <button mat-raised-button class="btn-block" color="warn" (click)="CloseUpd()">О
           Отмена
         </button>
       </div>

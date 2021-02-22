@@ -4,10 +4,11 @@ import {TaskService} from '../../services/task.service';
 import {Country} from '../../model/Country';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {DelDialogBoxComponent} from '../del-dialog-box/del-dialog-box.component';
 import {Task} from '../../model/Task';
 import {ForexPairs} from '../../model/ForexPair';
+import {CronDialogBoxComponent} from '../cron-dialog-box/cron-dialog-box.component';
 
 @Component({
   selector: 'app-add-dialog-box',
@@ -34,7 +35,7 @@ export class AddDialogBoxComponent implements OnInit {
   forexPairs: ForexPairs[] = [];
   filteredForexPairs: Observable<ForexPairs[]>;
 
-  constructor(private taskService: TaskService, public dialogRef: MatDialogRef<DelDialogBoxComponent>) {
+  constructor(private taskService: TaskService, public dialogRef: MatDialogRef<AddDialogBoxComponent>, public matDialog: MatDialog) {
     taskService.GetCovidCountries().subscribe(res => {
       this.countries = res;
     });
@@ -71,7 +72,7 @@ export class AddDialogBoxComponent implements OnInit {
     return this.forexPairs.filter(pair => pair.symbol.toLowerCase().includes(filterValue));
   }
 
-  addTask(): any {
+  AddTask(): any {
     let task;
     task = new Task();
     task.id = 0;
@@ -97,7 +98,17 @@ export class AddDialogBoxComponent implements OnInit {
 
   }
 
-  closeAdd(): any {
+  OpenCronDialog(): any {
+    const dialogRef = this.matDialog.open(CronDialogBoxComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result.event === 'CronSelected') {
+        console.log(result.cron);
+        this.period.setValue(result.cron);
+      }
+    });
+  }
+
+  CloseAdd(): any {
     this.dialogRef.close({event: 'Cancel'});
   }
 }

@@ -24,6 +24,7 @@
     "@angular/router": "~10.1.6",
     "@auth0/angular-jwt": "^5.0.2",
     "bootstrap": "^4.6.0",
+    "ngx-cron-editor": "^0.6.8",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"

@@ -57,19 +57,19 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>Укажите переодичность выполнения задачи в минутах</mat-label>
-      <input type="number" matInput [formControl]="period" min="1" required>
+      <mat-label>Укажите переодичность выполнения задачи</mat-label>
+      <input matInput [formControl]="period" (click)="OpenCronDialog()" required>
     </mat-form-field>
 
     <div class="row">
       <div class="col">
-        <button mat-raised-button class="btn-block" color="success" (click)="addTask()" [disabled]="showProgress ||
+        <button mat-raised-button class="btn-block" color="success" (click)="AddTask()" [disabled]="showProgress ||
         name.invalid || api.invalid || starttime.invalid || period.invalid">
           Добавить
         </button>
       </div>
       <div class="col">
-        <button mat-raised-button class="btn-block" color="warn" (click)="closeAdd()" [disabled]="showProgress">
+        <button mat-raised-button class="btn-block" color="warn" (click)="CloseAdd()" [disabled]="showProgress">
           Отмена
         </button>
       </div>

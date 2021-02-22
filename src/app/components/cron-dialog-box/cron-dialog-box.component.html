@@ -1,0 +1,8 @@
+<h2 mat-dialog-title class="text-center">Выберите периодичность</h2>
+<mat-dialog-content class="mat-typography">
+  <cron-editor #cronEditorDemo [(cron)]="cronExpression"  [options]="cronOptions"></cron-editor>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="success" (click)="AddCron()">Добавить</button>
+  <button mat-raised-button mat-dialog-close color="warn">Отмена</button>
+</mat-dialog-actions>

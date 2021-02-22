@@ -35,6 +35,8 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { AdminStatComponent } from './components/admin-stat/admin-stat.component';
+import { CronDialogBoxComponent } from './components/cron-dialog-box/cron-dialog-box.component';
+import {CronEditorModule} from 'ngx-cron-editor';
 
 export function tokenGetter(): string {
   return localStorage.getItem(ACCESS_TOKEN_KEY);
@@ -50,7 +52,8 @@ export function tokenGetter(): string {
     AddDialogBoxComponent,
     DelDialogBoxComponent,
     UpdDialogBoxComponent,
-    AdminStatComponent
+    AdminStatComponent,
+    CronDialogBoxComponent
   ],
   imports: [
     BrowserModule,
@@ -76,6 +79,7 @@ export function tokenGetter(): string {
     MatNativeDateModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
+    CronEditorModule,
 
 
     JwtModule.forRoot({
