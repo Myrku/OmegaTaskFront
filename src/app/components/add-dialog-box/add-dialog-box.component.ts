@@ -20,8 +20,8 @@ export class AddDialogBoxComponent implements OnInit {
   name = new FormControl('', [Validators.required]);
   desc = new FormControl('');
   api = new FormControl('', Validators.required);
-  apiparam = new FormControl('');
-  starttime = new FormControl('', Validators.required);
+  apiParam = new FormControl('');
+  startTime = new FormControl('', Validators.required);
   period = new FormControl('', Validators.required);
 
 
@@ -50,24 +50,24 @@ export class AddDialogBoxComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.filteredContries = this.apiparam.valueChanges
+    this.filteredContries = this.apiParam.valueChanges
       .pipe(
         startWith(''),
-        map(value => this.filterCountry(value))
+        map(value => this.FilterCountry(value))
       );
-    this.filteredForexPairs = this.apiparam.valueChanges
+    this.filteredForexPairs = this.apiParam.valueChanges
       .pipe(
         startWith(''),
-        map(value => this.filterForexPairs(value))
+        map(value => this.FilterForexPairs(value))
       );
   }
 
-  private filterCountry(value: any): Country[] {
+  private FilterCountry(value: any): Country[] {
     const filterValue = value.toLowerCase();
     return this.countries.filter(country => country.name.toLowerCase().includes(filterValue));
   }
 
-  private filterForexPairs(value: any): ForexPairs[] {
+  private FilterForexPairs(value: any): ForexPairs[] {
     const filterValue = value.toLowerCase();
     return this.forexPairs.filter(pair => pair.symbol.toLowerCase().includes(filterValue));
   }
@@ -76,39 +76,36 @@ export class AddDialogBoxComponent implements OnInit {
     let task;
     task = new Task();
     task.id = 0;
-    task.userid = 0;
-    task.taskname = this.name.value;
+    task.userId = 0;
+    task.taskName = this.name.value;
     task.description = this.desc.value;
     const y: number = +this.api.value;
-    task.apiid = y;
-    task.apiparam = this.apiparam.value;
-    task.starttime = new Date(this.starttime.value).toLocaleDateString();
+    task.apiId = y;
+    task.apiParam = this.apiParam.value;
+    task.startTime = new Date(this.startTime.value).toLocaleDateString();
     task.period = this.period.value;
-    task.laststart = '';
+    task.lastStart = '';
     this.showProgress = true;
 
     this.taskService.AddTask(task).subscribe(res => {
       this.showProgress = false;
       this.dialogRef.close({event: 'Add', newtask: task});
     }, error => {
-      console.log(error);
       this.isError = true;
       this.showProgress = false;
     });
-
   }
 
   OpenCronDialog(): any {
     const dialogRef = this.matDialog.open(CronDialogBoxComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result.event === 'CronSelected') {
-        console.log(result.cron);
         this.period.setValue(result.cron);
       }
     });
   }
 
   CloseAdd(): any {
-    this.dialogRef.close({event: 'Cancel'});
+    this.dialogRef.close();
   }
 }

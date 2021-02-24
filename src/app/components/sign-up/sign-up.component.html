@@ -12,33 +12,33 @@
               <mat-form-field appearance="fill">
                 <mat-label>Имя пользователя</mat-label>
                 <input type="text" matInput [formControl]="username" required>
-                <mat-error *ngIf="username.invalid">{{getUsernameError()}}</mat-error>
+                <mat-error *ngIf="username.invalid">{{GetUsernameError()}}</mat-error>
               </mat-form-field>
             </div>
             <div>
               <mat-form-field appearance="fill">
                 <mat-label>Почта</mat-label>
                 <input type="email" matInput required [formControl]="email">
-                <mat-error *ngIf="email.invalid">{{getEmailError()}}</mat-error>
+                <mat-error *ngIf="email.invalid">{{GetEmailError()}}</mat-error>
               </mat-form-field>
             </div>
             <div>
               <mat-form-field appearance="fill">
                 <mat-label>Пароль</mat-label>
                 <input type="password" matInput required [formControl]="password">
-                <mat-error *ngIf="password.invalid">{{getPasswordError()}}</mat-error>
+                <mat-error *ngIf="password.invalid">{{GetPasswordError()}}</mat-error>
               </mat-form-field>
             </div>
             <div>
               <mat-form-field appearance="fill">
                 <mat-label>Подтвердите пароль</mat-label>
-                <input type="password" matInput required [formControl]="confpassword">
-                <mat-error *ngIf="confpassword.invalid">{{getConfpasswordError()}}</mat-error>
+                <input type="password" matInput required [formControl]="confPassword">
+                <mat-error *ngIf="confPassword.invalid">{{GetConfPasswordError()}}</mat-error>
               </mat-form-field>
             </div>
             <div>
-              <button [disabled]="username.invalid || email.invalid || password.invalid || confpassword.invalid"
-                      fxFlex="100" mat-raised-button color="primary" (click)="clickRegister()">Зарегистрироваться
+              <button [disabled]="username.invalid || email.invalid || password.invalid || confPassword.invalid"
+                      fxFlex="100" mat-raised-button color="primary" (click)="ClickRegister()">Зарегистрироваться
               </button>
             </div>
             <div class="mat-success" *ngIf="successRegister">

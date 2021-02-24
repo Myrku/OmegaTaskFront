@@ -19,7 +19,7 @@ export class AuthService {
               private jwtHelper: JwtHelperService, private router: Router) {
   }
 
-  login(user: User): Observable<any> {
+  Login(user: User): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/api/auth/sign-in`, user).pipe(
       tap(res => {
         localStorage.setItem(ACCESS_TOKEN_KEY, res.access_token);
@@ -29,7 +29,7 @@ export class AuthService {
     );
   }
 
-  register(user: User): Observable<any> {
+  Register(user: User): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/api/auth/sign-up`, user).pipe();
   }
 
@@ -42,12 +42,8 @@ export class AuthService {
     return token && !this.jwtHelper.isTokenExpired(token);
   }
 
-  logout(): void {
+  Logout(): void {
     localStorage.removeItem(ACCESS_TOKEN_KEY);
     this.router.navigate(['']);
-  }
-
-  registerUser(username: string, email: string, password: string): void {
-
   }
 }

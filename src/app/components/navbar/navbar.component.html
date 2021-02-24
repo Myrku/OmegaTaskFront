@@ -12,7 +12,7 @@
       <mat-icon>person_add</mat-icon>
       Регистрация
     </button>
-    <button mat-raised-button routerLink="logout" class="mr-2" *ngIf="isLoggedIn" (click)="authService.logout()"
+    <button mat-raised-button routerLink="logout" class="mr-2" *ngIf="isLoggedIn" (click)="authService.Logout()"
             color="warn">
       <mat-icon>logout</mat-icon>
       Выйти
@@ -39,7 +39,7 @@
     Регистрация
   </button>
   <button mat-raised-button routerLink="logout" color="warn" class="ml-2" *ngIf="isLoggedIn"
-          (click)="authService.logout()">
+          (click)="authService.Logout()">
     <mat-icon>logout</mat-icon>
     Выйти
   </button>

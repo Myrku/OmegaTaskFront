@@ -22,27 +22,27 @@ export class SignInComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getUsernameError(): string {
+  GetUsernameError(): string {
     if (this.username.hasError('required')) {
       return 'Введите имя пользователя';
     }
     return this.password.hasError('minlength') ? 'Минимум 6 символов' : '';
   }
 
-  getPasswordError(): string {
+  GetPasswordError(): string {
     if (this.password.hasError('required')) {
       return 'Введите пароль';
     }
     return this.password.hasError('minlength') ? 'Пароль не менее 8 символов' : '';
   }
 
-  clickLogin(): void {
+  ClickLogin(): void {
     let user;
     user = new User();
     user.username = this.username.value;
     user.password = this.password.value;
     this.showProgress = true;
-    this.authService.login(user).subscribe(res => {
+    this.authService.Login(user).subscribe(res => {
       this.showProgress = false;
     }, error => {
       this.errorlogin = 'Ошибка при входе, проверьте правильность имени пользователя и пароля';

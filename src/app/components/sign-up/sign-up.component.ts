@@ -14,7 +14,7 @@ export class SignUpComponent implements OnInit {
   username = new FormControl('', [Validators.required, Validators.minLength(6)]);
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [Validators.required, Validators.minLength(8)]);
-  confpassword = new FormControl('', [Validators.required, Validators.minLength(8)]);
+  confPassword = new FormControl('', [Validators.required, Validators.minLength(8)]);
   errorRegister: string;
   successRegister: string;
   showProgress = false;
@@ -25,35 +25,35 @@ export class SignUpComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getUsernameError(): string {
+  GetUsernameError(): string {
     if (this.username.hasError('required')) {
       return 'Введите имя пользователя';
     }
     return this.username.errors.minlength ? 'Минимум 6 символов' : '';
   }
 
-  getEmailError(): string {
+  GetEmailError(): string {
     if (this.email.hasError('required')) {
       return 'Введите адрес электронной почты';
     }
     return this.email.hasError('email') ? 'Неверный формат электронной почты' : '';
   }
 
-  getPasswordError(): string {
+  GetPasswordError(): string {
     if (this.password.hasError('required')) {
       return 'Введите пароль';
     }
     return this.password.hasError('minlength') ? 'Пароль не менее 8 символов' : '';
   }
 
-  getConfpasswordError(): string {
-    if (this.confpassword.hasError('required')) {
+  GetConfPasswordError(): string {
+    if (this.confPassword.hasError('required')) {
       return 'Введите повторный пароль';
     }
-    return (this.confpassword.value !== this.password.value) ? 'Введенные пароли не совпадают' : '';
+    return (this.confPassword.value !== this.password.value) ? 'Введенные пароли не совпадают' : '';
   }
 
-  clickRegister(): void {
+  ClickRegister(): void {
     let user;
     user = new User();
     user.username = this.username.value;
@@ -61,7 +61,7 @@ export class SignUpComponent implements OnInit {
     user.email = this.email.value;
     user.role = 2;
     this.showProgress = true;
-    this.authService.register(user).subscribe(res => {
+    this.authService.Register(user).subscribe(res => {
       this.successRegister = 'Успешная регистрация';
       this.showProgress = false;
     }, error => {

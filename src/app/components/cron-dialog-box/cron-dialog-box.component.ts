@@ -12,6 +12,8 @@ export class CronDialogBoxComponent implements OnInit {
 
   @ViewChild('cronEditorDemo') cronEditorDemo: CronGenComponent;
   public cronExpression = '* * * * * *';
+
+  // config for cron editor
   public cronOptions: CronOptions = {
     formInputClass: 'form-control cron-editor-input',
     formSelectClass: 'form-control cron-editor-select',

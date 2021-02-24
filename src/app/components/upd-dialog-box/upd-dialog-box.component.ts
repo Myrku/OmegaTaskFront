@@ -20,12 +20,12 @@ export class UpdDialogBoxComponent implements OnInit {
   name = new FormControl(this.data.taskName, [Validators.required]);
   desc = new FormControl(this.data.description);
   api = new FormControl(`${this.data.apiId}`, Validators.required);
-  apiparam = new FormControl(this.data.apiParam);
+  apiParam = new FormControl(this.data.apiParam);
   period = new FormControl(this.data.period, Validators.required);
   disableSelect = new FormControl(this.data.apiParam !== '');
 
   countries: Country[] = [];
-  filteredContries: Observable<Country[]>;
+  filteredCountries: Observable<Country[]>;
   showProgress = false;
   isError = false;
   apis: any;
@@ -49,36 +49,36 @@ export class UpdDialogBoxComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.filteredContries = this.apiparam.valueChanges
+    this.filteredCountries = this.apiParam.valueChanges
       .pipe(
         startWith(''),
-        map(value => this.filterCountry(value))
+        map(value => this.FilterCountry(value))
       );
-    this.filteredForexPairs = this.apiparam.valueChanges
+    this.filteredForexPairs = this.apiParam.valueChanges
       .pipe(
         startWith(''),
-        map(value => this.filterForexPairs(value))
+        map(value => this.FilterForexPairs(value))
       );
   }
 
-  private filterCountry(value: any): Country[] {
+  private FilterCountry(value: any): Country[] {
     const filterValue = value.toLowerCase();
     return this.countries.filter(country => country.name.toLowerCase().includes(filterValue));
   }
 
-  private filterForexPairs(value: any): ForexPairs[] {
+  private FilterForexPairs(value: any): ForexPairs[] {
     const filterValue = value.toLowerCase();
     return this.forexPairs.filter(pair => pair.symbol.toLowerCase().includes(filterValue));
   }
 
 
-  updTask(): any {
+  UpdTask(): any {
 
     this.data.taskName = this.name.value;
     this.data.description = this.desc.value;
     const y: number = +this.api.value;
     this.data.apiId = y;
-    this.data.apiParam = this.apiparam.value;
+    this.data.apiParam = this.apiParam.value;
     this.data.period = this.period.value;
     this.showProgress = true;
 
@@ -86,24 +86,22 @@ export class UpdDialogBoxComponent implements OnInit {
       this.showProgress = false;
       this.dialogRef.close({event: 'Upd'});
     }, error => {
-      console.log(error);
       this.isError = true;
       this.showProgress = false;
     });
   }
 
   CloseUpd(): any {
-    this.dialogRef.close({event: 'Cancel'});
+    this.dialogRef.close();
   }
 
   ChangeSelectedApi(): void {
-    this.apiparam.setValue('');
+    this.apiParam.setValue('');
   }
   OpenCronDialog(): any {
     const dialogRef = this.matDialog.open(CronDialogBoxComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result.event === 'CronSelected') {
-        console.log(result.cron);
         this.period.setValue(result.cron);
       }
     });

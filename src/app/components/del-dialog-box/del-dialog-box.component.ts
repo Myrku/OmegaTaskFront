@@ -12,22 +12,19 @@ export class DelDialogBoxComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<DelDialogBoxComponent>, @Optional() @Inject(MAT_DIALOG_DATA) public data: Task,
               private taskService: TaskService) {
-    console.log(data);
   }
 
   ngOnInit(): void {
   }
 
-  delTask(): any{
+  DelTask(): any{
     this.taskService.DeleteTask(this.data.id).subscribe(res => {
       console.log(res);
       this.dialogRef.close({event: 'Delete'});
-    }, error => {
-      console.log(error);
     });
   }
 
-  closeDel(): any {
+  CloseDel(): any {
     this.dialogRef.close({event: 'Cancel'});
   }
 }
