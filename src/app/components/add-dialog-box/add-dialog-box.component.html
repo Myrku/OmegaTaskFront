@@ -27,13 +27,11 @@
 
     <!--  Input for get params for api  -->
     <mat-form-field *ngIf="(disableSelect.value && api.value !== '2') || api.value === '3'">
-      <mat-label>
-        <div *ngIf="api.value === '1'">
-          Введите название страны
-        </div>
-        <div *ngIf="api.value === '3'">
-          Введите название валютной пары
-        </div>
+      <mat-label *ngIf="api.value === '1'">
+        Введите название страны
+      </mat-label>
+      <mat-label *ngIf="api.value === '3'">
+        Введите название валютной пары
       </mat-label>
       <input type="text" aria-label="Number" matInput [formControl]="apiParam" [matAutocomplete]="auto">
       <mat-autocomplete #auto="matAutocomplete">
